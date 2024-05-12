@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>로또 번호 생성기</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+        background-image: url('Downloads/pig-8744739_1280.jpg'); /* 배경 이미지 URL */
+        background-size: cover; /* 이미지가 전체 화면을 커버하도록 조정 */
+        background-position: center; /* 이미지 위치 중앙 조정 */
+    }
+    .ball { 
+        display: inline-block; 
+        margin: 5px; 
+        width: 40px; 
+        height: 40px; 
+        border-radius: 50%; 
+        color: white; 
+        line-height: 40px; 
+        font-size: 18px; 
+        text-align: center; 
+    }
+    .yellow { background-color: #ffd700; }
+    .blue { background-color: #5390d9; }
+    .red { background-color: #e84118; }
+    .green { background-color: #4cd137; }
+    .purple { background-color: #9b59b6; }
+    button { 
+        padding: 10px 20px; 
+        font-size: 16px; 
+        cursor: pointer; 
+    }
+</style>
+</head>
+<body>
+<h1>로또 번호 생성기</h1>
+<button onclick="generateLottoNumbers()">번호 생성</button>
+<div id="ballContainer"></div>
+
+<script>
+function generateLottoNumbers() {
+    let numbers = [];
+    while (numbers.length < 6) {
+        let num = Math.floor(Math.random() * 45) + 1;
+        if (!numbers.includes(num)) {
+            numbers.push(num);
+        }
+    }
+    numbers.sort((a, b) => a - b);
+    displayNumbers(numbers);
+}
+
+function displayNumbers(numbers) {
+    const container = document.getElementById('ballContainer');
+    container.innerHTML = '';
+    numbers.forEach((num, index) => {
+        setTimeout(() => {
+            let ball = document.createElement('div');
+            ball.textContent = num;
+            ball.className = 'ball ' + getColor(num);
+            container.appendChild(ball);
+        }, 1000 * index);
+    });
+}
+
+function getColor(num) {
+    if (num <= 10) {
+        return 'yellow';
+    } else if (num <= 20) {
+        return 'blue';
+    } else if (num <= 30) {
+        return 'red';
+    } else if (num <= 40) {
+        return 'green';
+    } else {
+        return 'purple';
+    }
+}
+</script>
+</body>
+</html>
